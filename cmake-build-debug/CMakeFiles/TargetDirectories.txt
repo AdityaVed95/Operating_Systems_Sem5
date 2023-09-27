@@ -1,0 +1,3 @@
+/Users/adityaved/prj_ws/my_git_hub_repos/sem5/Operating_Systems_Sem5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/adityaved/prj_ws/my_git_hub_repos/sem5/Operating_Systems_Sem5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/adityaved/prj_ws/my_git_hub_repos/sem5/Operating_Systems_Sem5/cmake-build-debug/CMakeFiles/Operating_Systems_Sem5.dir
