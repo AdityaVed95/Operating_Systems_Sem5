@@ -106,11 +106,11 @@ def main():
     #     if process is not None:
     #         print(process.completion_time)
 
-    print("{:<15} {:<15} {:<15} {:<15} {:<15}".format("Process Id","Arrival Time","Burst Time","Waiting Time","Completion Time","Turn Around Time"))
+    print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format("Process Id","Arrival Time","Burst Time","Waiting Time","Completion Time","Turn Around Time"))
 
     for process in processes:
         if process is not None:
-            print("{:<15} {:<15} {:<15} {:<15} {:<15}".format(process.process_id,process.arrival_time,process.burst_time,process.waiting_time,process.completion_time,process.turn_around_time))
+            print("{:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(process.process_id,process.arrival_time,process.burst_time,process.waiting_time,process.completion_time,process.turn_around_time))
 
 if __name__ == "__main__":
     main()

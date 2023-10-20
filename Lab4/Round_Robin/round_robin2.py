@@ -1,17 +1,4 @@
-# my_script.py
-
-# import sys
-# from os.path import dirname, abspath, join
-
-# # Adding the 'other_folder' directory to sys.path
-# parent_dir = dirname(abspath(__file__))  # this gets the directory of the current script
-# other_folder_path = join(parent_dir, 'SRTN')
-# sys.path.append(other_folder_path)
-
-# # Now import your function
-# from SRTN import arrival_time_and_process_id_dictionary_create
-
-# ignore this code : this code has bugs 
+# this is the correct code : 
 
 class Process:
     
@@ -60,10 +47,11 @@ p4 = Process(4,3,1)
 p5 = Process(5,4,5)
 p6 = Process(6,6,4)
 
+
 # assumption is that p1 process is 1st to enter the ready queue
 processes = [None,p1,p2,p3,p4,p5,p6]
 
-time_to_check_for_preemption = [0,4,8,12,16,20,24]
+# time_to_check_for_preemption = [0,4,8,12,16,20,24]
 sum_of_burst_times = 0
 for process in processes:
     if process is not None:
@@ -72,36 +60,11 @@ for process in processes:
 arrival_time_process_ids_mapping = arrival_time_and_process_id_dictionary_create(processes)    
 time = 0
 ready_queue = {}
-selected_pid = None
-pointer_to_executing_process = 1
+selected_pid = 1
+time_of_selected_pid = 0
 
 while(time != sum_of_burst_times):
-    # cases in which a new process will be scheduled for execution :
-    # either current process execution time ends or it's time slice ends
-    if( (time in time_to_check_for_preemption) or (ready_queue[selected_pid] == 0)):
-        if selected_pid is not None:
-            if ready_queue[selected_pid] == 0:
-                processes[selected_pid].completion_time = time 
-                
-                if pointer_to_executing_process >= len(ready_queue):
-                    pointer_to_executing_process = 1   
-                
-                del ready_queue[selected_pid]
-            
-            
-            else:
-                pointer_to_executing_process += 1
-                selected_pid = 1
-            
-            selected_pid = list(ready_queue)[pointer_to_executing_process-1]
-        
-        elif len(ready_queue) == 0:
-            pointer_to_executing_process = 1
-            selected_pid = 1
-        
-        
-                
-                
+    
     # if a new process enters the ready queue then we just put it in 
     # the ready queue without checking for premption of currently running process
     if time in list(arrival_time_process_ids_mapping.keys()):
@@ -112,10 +75,37 @@ while(time != sum_of_burst_times):
                     
         for process_id in processes_ids_to_put_in_ready_queue:
                 ready_queue.update({process_id:processes[process_id].burst_time})
+    
+    
+    # cases in which a new process will be scheduled for execution :
+    # either current process execution time ends or it's time slice ends
+    if( (time_of_selected_pid == 4) or (ready_queue[selected_pid] == 0)):
+        if selected_pid is not None:
+            if ready_queue[selected_pid] == 0:
+                processes[selected_pid].completion_time = time 
+                del ready_queue[selected_pid]
+            else:
+                processes[selected_pid].remaining_time = ready_queue[selected_pid]
+                del ready_queue[selected_pid]
+                ready_queue.update({selected_pid:processes[selected_pid].remaining_time})
+            
+            time_of_selected_pid = 0
+            selected_pid = list(ready_queue)[0]
+            
+        else:
+            selected_pid = 1
+            
+            
+        
+        
+                
+                
+
         
     
     print("Scheduling process : ",selected_pid," at time = ",time) 
     ready_queue[selected_pid] -= 1
+    time_of_selected_pid += 1
     time += 1
 
 processes[selected_pid].completion_time = time

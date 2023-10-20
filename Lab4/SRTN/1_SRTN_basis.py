@@ -11,14 +11,7 @@ class Process:
         self.turn_around_time = 0
         self.completion_time = 0
         
-def select_pid_from_ready_queue(ready_queue):
-    selected_pid = list(ready_queue.keys())[0]
-    for key,value in ready_queue.items():
-        if value < ready_queue[selected_pid]:
-            selected_pid = key
-    
-    return selected_pid
-        
+
     
     
 p1 = Process(1,0,7)
